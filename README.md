@@ -4,7 +4,7 @@ Plugin for [Autodesk Flame software](http://www.autodesk.com/products/flame).
 
 Takes vertically stacked segments and flattens them to just the top most segments.
 
-![screenshot](flatten_segments_demo.gif | width=960)
+![screenshot](flatten_segments_demo.gif)
 
 ## Installation
 **Tested & working on 2024.1.2**

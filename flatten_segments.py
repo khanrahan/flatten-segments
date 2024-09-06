@@ -29,12 +29,13 @@ To Install:
 
 from __future__ import print_function
 from functools import partial
-from PySide2 import QtCore
-from PySide2 import QtWidgets
+from PySide6 import QtCore
+from PySide6 import QtGui
+from PySide6 import QtWidgets
 import flame
 
 TITLE = 'Flatten Segments'
-VERSION_INFO = (1, 0, 0)
+VERSION_INFO = (1, 0, 0, 'dev')
 VERSION = '.'.join([str(num) for num in VERSION_INFO])
 TITLE_VERSION = '{} v{}'.format(TITLE, VERSION)
 MESSAGE_PREFIX = '[PYTHON]'
@@ -433,7 +434,7 @@ class FlattenTracks():
         flame.execute_shortcut('Close Current Sequence')
 
     def main_window(self):
-        '''The only GUI,'''
+        '''The only GUI.'''
 
         def sources_btn_toggle():
             '''Update discard attribute when toggled.'''
@@ -464,7 +465,7 @@ class FlattenTracks():
         self.window.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
         # Center Window
-        resolution = QtWidgets.QDesktopWidget().screenGeometry()
+        resolution = QtGui.QGuiApplication.primaryScreen().screenGeometry()
 
         self.window.move(
                 (resolution.width() / 2) - (self.window_x / 2),
@@ -494,7 +495,7 @@ class FlattenTracks():
         self.hbox.addWidget(self.btn_ok)
 
         self.vbox = QtWidgets.QVBoxLayout()
-        self.vbox.setMargin(20)
+        self.vbox.setContentsMargins(20, 20, 20, 20)
         self.vbox.addLayout(self.grid)
         self.vbox.addSpacing(20)
         self.vbox.addLayout(self.hbox)
@@ -521,5 +522,5 @@ def get_timeline_custom_ui_actions():
              'actions': [{'name': "Flatten Segments",
                           'isVisible': scope_segment,
                           'execute': FlattenTracks,
-                          'minimumVersion': "2023"}]
+                          'minimumVersion': "2025"}]
            }]

@@ -485,11 +485,18 @@ class FlattenTracks():
 
 
 def scope_segment(selection):
-    """Filter for only PySequence."""
-    for item in selection:
-        if isinstance(item, flame.PySegment):
-            return True
-    return False
+    """Return bool for whether selection contains only valid objects.
+
+    PyTransition is included because a shift + left click range selection of segments
+    will include the transitions in between.  Otherwise, the artist will not be
+    presented with the menu item.
+    """
+    valid_objects = (
+            flame.PyClip,
+            flame.PySegment,
+            flame.PyTransition)
+
+    return all(isinstance(item, valid_objects) for item in selection)
 
 
 def get_timeline_custom_ui_actions():

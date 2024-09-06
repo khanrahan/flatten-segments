@@ -243,7 +243,6 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
 
     def create_menu(self, option, menu_action):
         """Create it!"""
-
         self.setText(option)
 
         if menu_action:
@@ -251,7 +250,6 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
 
     def populate_menu(self, options):
         """Empty the menu then reassemble the options."""
-
         self.pushbutton_menu.clear()
 
         for option in options:
@@ -286,7 +284,6 @@ class FlattenTracks():
     @staticmethod
     def message(string):
         """Print message to shell window and append global MESSAGE_PREFIX."""
-
         print(' '.join([MESSAGE_PREFIX, string]))
 
     def get_specific_parent(self, child, targets):
@@ -297,7 +294,6 @@ class FlattenTracks():
             child: Starting flame object.
             targets: Tuple.  same as isinstance takes.
         """
-
         parents = []
 
         while child:
@@ -310,42 +306,35 @@ class FlattenTracks():
 
     def get_parent_sequence(self, child):
         """A timeline seems possible to be PyClip or a PySequence."""
-
         return self.get_specific_parent(child, (flame.PyClip, flame.PySequence))
 
     def get_parent_track(self, flame_object):
         """Get parent PyTrack object."""
-
         return self.get_specific_parent(flame_object, (flame.PyTrack))
 
     def get_parent_version(self, flame_object):
         """Get parent PyVersion object."""
-
         return self.get_specific_parent(flame_object, (flame.PyVersion))
 
     def get_track_index(self, segment):
         """Get index of parent PyTrack."""
-
         track = self.get_parent_track(segment)
         version = self.get_parent_version(segment)
         return version.tracks.index(track)
 
     def get_version_index(self, segment):
         """Get index of parent PyVersion."""
-
         version = self.get_parent_version(segment)
         return self.sequence.versions.index(version)
 
     def deselect_selection(self):
         """Deselect everything so that lifting from the sequence may begin."""
-
         for item in self.selection:
             item.selected = False
 
     def sort_selection(self):
         """Put the selected segments in order from left to right, bottom to top.  This
         is necessary so segments on higher tracks overwrite the lower ones."""
-
         segment_version_track = []
 
         for segment in self.selection:
@@ -364,17 +353,14 @@ class FlattenTracks():
     def create_temp_reel(self):
         """Create temporary reel on the desktop to contain the segments during
         flattening. """
-
         self.reel_temp = self.desktop.reel_groups[0].create_reel('Flatten Segments TEMP')
 
     def delete_temp_reel(self):
         """Remove it when no longer needed."""
-
         flame.delete(self.reel_temp)
 
     def create_destination(self):
         """Create and store destination track & version in self.sequence."""
-
         self.destination_version = self.sequence.create_version()
         self.destination_track = self.destination_version.tracks[0]
 
@@ -384,7 +370,6 @@ class FlattenTracks():
         destination track.  Working from the bottom up, the top most segments are what
         will remain at the end.
         """
-
         for segment in self.selection:
 #            if not isinstance(segment, flame.PySegment):  # eliminate PyTransitions.
 #                continue
@@ -397,14 +382,12 @@ class FlattenTracks():
 
     def discard_versions(self):
         """Delete version of the parent sequence that are not the destination track. """
-
         for version in self.sequence.versions:
             if version != self.destination_version:
                 flame.delete(version, confirm=False)
 
     def process_selection(self):
         """Where the work gets done!"""
-
         # Store Current Sequence
         self.sequence = self.get_parent_sequence(self.selection[0])
 
@@ -438,7 +421,6 @@ class FlattenTracks():
 
         def sources_btn_toggle():
             """Update discard attribute when toggled."""
-
             if self.btn_sources.text() == 'Keep':
                 self.discard = False
             else:
@@ -446,14 +428,12 @@ class FlattenTracks():
 
         def okay_button():
             """Triggered when the Okay button at the bottom is pressed."""
-
             self.process_selection()
             self.message('Done!')
             self.window.close()
 
         def cancel_button():
             """Triggered when the Cancel button at the bottom is pressed."""
-
             self.message('Cancelled!')
             self.window.close()
 
@@ -508,7 +488,6 @@ class FlattenTracks():
 
 def scope_segment(selection):
     """Filter for only PySequence."""
-
     for item in selection:
         if isinstance(item, flame.PySegment):
             return True
@@ -517,7 +496,6 @@ def scope_segment(selection):
 
 def get_timeline_custom_ui_actions():
     """Python hook to add custom right click menu inside timeline window."""
-
     return [{'name': 'Edit...',
              'actions': [{'name': 'Flatten Segments',
                           'isVisible': scope_segment,

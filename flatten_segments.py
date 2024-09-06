@@ -1,4 +1,4 @@
-'''
+"""
 Script Name: Flatten Segments
 Written By: Kieran Hanrahan
 
@@ -25,7 +25,7 @@ To Install:
 
     For a specific user, copy this file to:
     /opt/Autodesk/user/<user name>/python
-'''
+"""
 
 from __future__ import print_function
 from functools import partial
@@ -42,7 +42,7 @@ MESSAGE_PREFIX = '[PYTHON]'
 
 
 class FlameButton(QtWidgets.QPushButton):
-    '''
+    """
     Custom Qt Flame Button Widget v2.1
 
     button_name: button text [str]
@@ -55,7 +55,7 @@ class FlameButton(QtWidgets.QPushButton):
 
         button = FlameButton(
             'Button Name', do_something__when_pressed, button_color='blue')
-    '''
+    """
 
     def __init__(self, button_name, connect, button_color='normal', button_width=150,
                  button_max_width=150):
@@ -67,7 +67,7 @@ class FlameButton(QtWidgets.QPushButton):
         self.setFocusPolicy(QtCore.Qt.NoFocus)
         self.clicked.connect(connect)
         if button_color == 'normal':
-            self.setStyleSheet('''
+            self.setStyleSheet("""
                 QPushButton {
                     color: rgb(154, 154, 154);
                     background-color: rgb(58, 58, 58);
@@ -86,9 +86,9 @@ class FlameButton(QtWidgets.QPushButton):
                 QToolTip {
                     color: rgb(170, 170, 170);
                     background-color: rgb(71, 71, 71);
-                    border: 10px solid rgb(71, 71, 71)}''')
+                    border: 10px solid rgb(71, 71, 71)}""")
         elif button_color == 'blue':
-            self.setStyleSheet('''
+            self.setStyleSheet("""
                 QPushButton {
                     color: rgb(190, 190, 190);
                     background-color: rgb(0, 110, 175);
@@ -106,11 +106,11 @@ class FlameButton(QtWidgets.QPushButton):
                 QToolTip {
                     color: rgb(170, 170, 170);
                     background-color: rgb(71, 71, 71);
-                    border: 10px solid rgb(71, 71, 71)}''')
+                    border: 10px solid rgb(71, 71, 71)}""")
 
 
 class FlameLabel(QtWidgets.QLabel):
-    '''
+    """
     Custom Qt Flame Label Widget v2.1
 
     label_name:  text displayed [str]
@@ -121,7 +121,7 @@ class FlameLabel(QtWidgets.QLabel):
     Usage:
 
         label = FlameLabel('Label Name', 'normal', 300)
-    '''
+    """
 
     def __init__(self, label_name, label_type='normal', label_width=150):
         super(FlameLabel, self).__init__()
@@ -134,34 +134,34 @@ class FlameLabel(QtWidgets.QLabel):
         # Set label stylesheet based on label_type
 
         if label_type == 'normal':
-            self.setStyleSheet('''
+            self.setStyleSheet("""
                 QLabel {
                     color: rgb(154, 154, 154);
                     font: 14px "Discreet"}
                 QLabel:disabled {
-                    color: rgb(106, 106, 106)}''')
+                    color: rgb(106, 106, 106)}""")
         elif label_type == 'underline':
             self.setAlignment(QtCore.Qt.AlignCenter)
-            self.setStyleSheet('''
+            self.setStyleSheet("""
                 QLabel {
                     color: rgb(154, 154, 154);
                     border-bottom: 1px inset rgb(40, 40, 40);
                     font: 14px "Discreet"}
                 QLabel:disabled {
-                    color: rgb(106, 106, 106)}''')
+                    color: rgb(106, 106, 106)}""")
         elif label_type == 'background':
-            self.setStyleSheet('''
+            self.setStyleSheet("""
                 QLabel {
                     color: rgb(154, 154, 154);
                     background-color: rgb(30, 30, 30);
                     padding-left: 5px;
                     font: 14px "Discreet"}
                 QLabel:disabled {
-                    color: rgb(106, 106, 106)}''')
+                    color: rgb(106, 106, 106)}""")
 
 
 class FlamePushButtonMenu(QtWidgets.QPushButton):
-    '''
+    """
     Custom Qt Flame Menu Push Button Widget v3.1
 
     button_name: text displayed on button [str]
@@ -186,7 +186,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
         Started as v2.1
         v3.1 adds a functionionality to set the width of the menu to be the same as the
         button.
-    '''
+    """
 
     def __init__(self, button_name, menu_options, menu_width=240, max_menu_width=2000,
                  menu_action=None):
@@ -201,7 +201,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
         self.setMinimumWidth(menu_width)
         self.setMaximumWidth(max_menu_width)  # is max necessary?
         self.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.setStyleSheet('''
+        self.setStyleSheet("""
             QPushButton {
                 color: rgb(154, 154, 154);
                 background-color: rgb(45, 55, 68);
@@ -219,30 +219,30 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
             QToolTip {
                 color: rgb(170, 170, 170);
                 background-color: rgb(71, 71, 71);
-                border: 10px solid rgb(71, 71, 71)}''')
+                border: 10px solid rgb(71, 71, 71)}""")
 
         # Menu
         def match_width():
-            '''Match menu width to the parent push button width.'''
+            """Match menu width to the parent push button width."""
             self.pushbutton_menu.setMinimumWidth(self.size().width())
 
         self.pushbutton_menu = QtWidgets.QMenu(self)
         self.pushbutton_menu.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushbutton_menu.aboutToShow.connect(match_width)
-        self.pushbutton_menu.setStyleSheet('''
+        self.pushbutton_menu.setStyleSheet("""
             QMenu {
                 color: rgb(154, 154, 154);
                 background-color: rgb(45, 55, 68);
                 border: none; font: 14px "Discreet"}
             QMenu::item:selected {
                 color: rgb(217, 217, 217);
-                background-color: rgb(58, 69, 81)}''')
+                background-color: rgb(58, 69, 81)}""")
 
         self.populate_menu(menu_options)
         self.setMenu(self.pushbutton_menu)
 
     def create_menu(self, option, menu_action):
-        '''Create it!'''
+        """Create it!"""
 
         self.setText(option)
 
@@ -250,7 +250,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
             menu_action()
 
     def populate_menu(self, options):
-        '''Empty the menu then reassemble the options.'''
+        """Empty the menu then reassemble the options."""
 
         self.pushbutton_menu.clear()
 
@@ -260,7 +260,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
 
 
 class FlattenTracks():
-    '''Takes vertically stacked segments and flattens them to just the top most segment.'''
+    """Takes vertically stacked segments and flattens them to just the top most segment."""
 
     def __init__(self, selection):
 
@@ -285,18 +285,18 @@ class FlattenTracks():
 
     @staticmethod
     def message(string):
-        '''Print message to shell window and append global MESSAGE_PREFIX.'''
+        """Print message to shell window and append global MESSAGE_PREFIX."""
 
         print(' '.join([MESSAGE_PREFIX, string]))
 
     def get_specific_parent(self, child, targets):
-        '''
+        """
         Ascend up the chain of parents until finding the target object.
 
         Args:
             child: Starting flame object.
             targets: Tuple.  same as isinstance takes.
-        '''
+        """
 
         parents = []
 
@@ -309,42 +309,42 @@ class FlattenTracks():
         return parents[-1]
 
     def get_parent_sequence(self, child):
-        '''A timeline seems possible to be PyClip or a PySequence.'''
+        """A timeline seems possible to be PyClip or a PySequence."""
 
         return self.get_specific_parent(child, (flame.PyClip, flame.PySequence))
 
     def get_parent_track(self, flame_object):
-        '''Get parent PyTrack object.'''
+        """Get parent PyTrack object."""
 
         return self.get_specific_parent(flame_object, (flame.PyTrack))
 
     def get_parent_version(self, flame_object):
-        '''Get parent PyVersion object.'''
+        """Get parent PyVersion object."""
 
         return self.get_specific_parent(flame_object, (flame.PyVersion))
 
     def get_track_index(self, segment):
-        '''Get index of parent PyTrack.'''
+        """Get index of parent PyTrack."""
 
         track = self.get_parent_track(segment)
         version = self.get_parent_version(segment)
         return version.tracks.index(track)
 
     def get_version_index(self, segment):
-        '''Get index of parent PyVersion.'''
+        """Get index of parent PyVersion."""
 
         version = self.get_parent_version(segment)
         return self.sequence.versions.index(version)
 
     def deselect_selection(self):
-        '''Deselect everything so that lifting from the sequence may begin.'''
+        """Deselect everything so that lifting from the sequence may begin."""
 
         for item in self.selection:
             item.selected = False
 
     def sort_selection(self):
-        '''Put the selected segments in order from left to right, bottom to top.  This
-        is necessary so segments on higher tracks overwrite the lower ones.'''
+        """Put the selected segments in order from left to right, bottom to top.  This
+        is necessary so segments on higher tracks overwrite the lower ones."""
 
         segment_version_track = []
 
@@ -362,28 +362,28 @@ class FlattenTracks():
         self.selection = [obj for (obj, version, track) in ordered_segments]
 
     def create_temp_reel(self):
-        '''Create temporary reel on the desktop to contain the segments during
-        flattening. '''
+        """Create temporary reel on the desktop to contain the segments during
+        flattening. """
 
         self.reel_temp = self.desktop.reel_groups[0].create_reel('Flatten Segments TEMP')
 
     def delete_temp_reel(self):
-        '''Remove it when no longer needed.'''
+        """Remove it when no longer needed."""
 
         flame.delete(self.reel_temp)
 
     def create_destination(self):
-        '''Create and store destination track & version in self.sequence.'''
+        """Create and store destination track & version in self.sequence."""
 
         self.destination_version = self.sequence.create_version()
         self.destination_track = self.destination_version.tracks[0]
 
     def flatten_segments(self):
-        '''This function only takes PySegments. All transitions and gaps should already
+        """This function only takes PySegments. All transitions and gaps should already
         be filtered out.  Copy each selected segment out and then overwrite edit to the
         destination track.  Working from the bottom up, the top most segments are what
         will remain at the end.
-        '''
+        """
 
         for segment in self.selection:
 #            if not isinstance(segment, flame.PySegment):  # eliminate PyTransitions.
@@ -396,14 +396,14 @@ class FlattenTracks():
             flame.execute_shortcut('Deselect')
 
     def discard_versions(self):
-        '''Delete version of the parent sequence that are not the destination track. '''
+        """Delete version of the parent sequence that are not the destination track. """
 
         for version in self.sequence.versions:
             if version != self.destination_version:
                 flame.delete(version, confirm=False)
 
     def process_selection(self):
-        '''Where the work gets done!'''
+        """Where the work gets done!"""
 
         # Store Current Sequence
         self.sequence = self.get_parent_sequence(self.selection[0])
@@ -434,10 +434,10 @@ class FlattenTracks():
         flame.execute_shortcut('Close Current Sequence')
 
     def main_window(self):
-        '''The only GUI.'''
+        """The only GUI."""
 
         def sources_btn_toggle():
-            '''Update discard attribute when toggled.'''
+            """Update discard attribute when toggled."""
 
             if self.btn_sources.text() == 'Keep':
                 self.discard = False
@@ -445,14 +445,14 @@ class FlattenTracks():
                 self.discard = True
 
         def okay_button():
-            '''Triggered when the Okay button at the bottom is pressed.'''
+            """Triggered when the Okay button at the bottom is pressed."""
 
             self.process_selection()
             self.message('Done!')
             self.window.close()
 
         def cancel_button():
-            '''Triggered when the Cancel button at the bottom is pressed.'''
+            """Triggered when the Cancel button at the bottom is pressed."""
 
             self.message('Cancelled!')
             self.window.close()
@@ -507,7 +507,7 @@ class FlattenTracks():
 
 
 def scope_segment(selection):
-    '''Filter for only PySequence.'''
+    """Filter for only PySequence."""
 
     for item in selection:
         if isinstance(item, flame.PySegment):
@@ -516,11 +516,11 @@ def scope_segment(selection):
 
 
 def get_timeline_custom_ui_actions():
-    '''Python hook to add custom right click menu inside timeline window.'''
+    """Python hook to add custom right click menu inside timeline window."""
 
-    return [{'name': "Edit...",
-             'actions': [{'name': "Flatten Segments",
+    return [{'name': 'Edit...',
+             'actions': [{'name': 'Flatten Segments',
                           'isVisible': scope_segment,
                           'execute': FlattenTracks,
-                          'minimumVersion': "2025"}]
+                          'minimumVersion': '2025'}]
            }]

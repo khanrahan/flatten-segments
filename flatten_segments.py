@@ -27,7 +27,6 @@ To Install:
     /opt/Autodesk/user/<user name>/python
 """
 
-from __future__ import print_function
 from functools import partial
 from PySide6 import QtCore
 from PySide6 import QtGui
@@ -381,7 +380,7 @@ class FlattenTracks():
             flame.execute_shortcut('Deselect')
 
     def discard_versions(self):
-        """Delete version of the parent sequence that are not the destination track. """
+        """Delete version of the parent sequence that are not the destination track."""
         for version in self.sequence.versions:
             if version != self.destination_version:
                 flame.delete(version, confirm=False)

@@ -351,7 +351,8 @@ class FlattenTracks():
     def create_temp_reel(self):
         """Create temporary reel on the desktop to contain the segments during
         flattening. """
-        self.reel_temp = self.desktop.reel_groups[0].create_reel('Flatten Segments TEMP')
+        self.reel_temp = self.desktop.reel_groups[0].create_reel(
+                'Flatten Segments TEMP')
 
     def delete_temp_reel(self):
         """Remove it when no longer needed."""

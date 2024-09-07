@@ -252,7 +252,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
                 option, partial(self.create_menu, option, self.menu_action))
 
 
-class FlattenSegments():
+class FlattenSegments:
     """Flatten segments.
 
     Takes vertically stacked segments and flattens them to just the top most segment.

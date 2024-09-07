@@ -377,10 +377,6 @@ class FlattenTracks():
         will remain at the end.
         """
         for segment in self.selection:
-#            if not isinstance(segment, flame.PySegment):  # eliminate PyTransitions.
-#                continue
-#            if segment.type == 'Gap':  # Skip gaps.
-#                continue
             segment.selected = True
             new_clip = self.sequence.copy_selection_to_media_panel(self.reel_temp)
             self.sequence.overwrite(new_clip, segment.record_in, self.destination_track)

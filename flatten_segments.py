@@ -57,7 +57,7 @@ class FlameButton(QtWidgets.QPushButton):
 
     def __init__(self, button_name, connect, button_color='normal', button_width=150,
                  button_max_width=150):
-        super(FlameButton, self).__init__()
+        super().__init__()
 
         self.setText(button_name)
         self.setMinimumSize(QtCore.QSize(button_width, 28))
@@ -122,7 +122,7 @@ class FlameLabel(QtWidgets.QLabel):
     """
 
     def __init__(self, label_name, label_type='normal', label_width=150):
-        super(FlameLabel, self).__init__()
+        super().__init__()
 
         self.setText(label_name)
         self.setMinimumSize(label_width, 28)
@@ -188,7 +188,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
 
     def __init__(self, button_name, menu_options, menu_width=240, max_menu_width=2000,
                  menu_action=None):
-        super(FlamePushButtonMenu, self).__init__()
+        super().__init__()
 
         self.button_name = button_name
         self.menu_options = menu_options

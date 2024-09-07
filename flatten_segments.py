@@ -252,7 +252,7 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
                 option, partial(self.create_menu, option, self.menu_action))
 
 
-class FlattenTracks():
+class FlattenSegments():
     """Flatten segments.
 
     Takes vertically stacked segments and flattens them to just the top most segment.
@@ -508,6 +508,6 @@ def get_timeline_custom_ui_actions():
     return [{'name': 'Edit...',
              'actions': [{'name': 'Flatten Segments',
                           'isVisible': scope_segment,
-                          'execute': FlattenTracks,
+                          'execute': FlattenSegments,
                           'minimumVersion': '2025'}]
            }]

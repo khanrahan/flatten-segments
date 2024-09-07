@@ -40,8 +40,7 @@ MESSAGE_PREFIX = '[PYTHON]'
 
 
 class FlameButton(QtWidgets.QPushButton):
-    """
-    Custom Qt Flame Button Widget v2.1
+    """Custom Qt Flame Button Widget v2.1
 
     button_name: button text [str]
     connect: execute when clicked [function]
@@ -108,8 +107,7 @@ class FlameButton(QtWidgets.QPushButton):
 
 
 class FlameLabel(QtWidgets.QLabel):
-    """
-    Custom Qt Flame Label Widget v2.1
+    """Custom Qt Flame Label Widget v2.1
 
     label_name:  text displayed [str]
     label_type:  (optional) select from different styles:
@@ -159,8 +157,7 @@ class FlameLabel(QtWidgets.QLabel):
 
 
 class FlamePushButtonMenu(QtWidgets.QPushButton):
-    """
-    Custom Qt Flame Menu Push Button Widget v3.1
+    """Custom Qt Flame Menu Push Button Widget v3.1
 
     button_name: text displayed on button [str]
     menu_options: list of options show when button is pressed [list]
@@ -288,8 +285,7 @@ class FlattenTracks():
         print(' '.join([MESSAGE_PREFIX, string]))
 
     def get_specific_parent(self, child, targets):
-        """
-        Ascend up the chain of parents until finding the target object.
+        """Ascend up the chain of parents until finding the target object.
 
         Args:
             child: Starting flame object.
@@ -334,8 +330,11 @@ class FlattenTracks():
             item.selected = False
 
     def sort_selection(self):
-        """Put the selected segments in order from left to right, bottom to top.  This
-        is necessary so segments on higher tracks overwrite the lower ones."""
+        """Sort selected PySegment objects.
+
+        Put the selected segments in order from left to right, bottom to top.  This
+        is necessary so segments on higher tracks overwrite the lower ones.
+        """
         segment_version_track = []
 
         for segment in self.selection:
@@ -352,8 +351,11 @@ class FlattenTracks():
         self.selection = [obj for (obj, version, track) in ordered_segments]
 
     def create_temp_reel(self):
-        """Create temporary reel on the desktop to contain the segments during
-        flattening. """
+        """Create temporary reel.
+
+        Create temporary reel on the desktop to contain the segments during
+        flattening.
+        """
         self.reel_temp = self.desktop.reel_groups[0].create_reel(
                 'Flatten Segments TEMP')
 
@@ -367,7 +369,9 @@ class FlattenTracks():
         self.destination_track = self.destination_version.tracks[0]
 
     def flatten_segments(self):
-        """This function only takes PySegments. All transitions and gaps should already
+        """Flatten the selection.
+
+        This function only takes PySegments. All transitions and gaps should already
         be filtered out.  Copy each selected segment out and then overwrite edit to the
         destination track.  Working from the bottom up, the top most segments are what
         will remain at the end.

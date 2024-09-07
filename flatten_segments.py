@@ -2,13 +2,13 @@
 Script Name: Flatten Segments
 Written By: Kieran Hanrahan
 
-Script Version: 1.0.0
-Flame Version: 2023
+Script Version: 2.0.0
+Flame Version: 2025
 
 URL: http://github.com/khanrahan/flatten-segments
 
 Creation Date: 01.12.24
-Update Date: 01.12.24
+Update Date: 09.06.24
 
 Description:
 
@@ -23,8 +23,11 @@ To Install:
     For all users, copy this file to:
     /opt/Autodesk/shared/python
 
-    For a specific user, copy this file to:
-    /opt/Autodesk/user/<user name>/python
+    For just your own user on Linux, copy this file to:
+    ~/flame/python
+
+    For just your own user on Mac, copy this file to:
+    /User/user_name/Library/Preferences/Autodesk/flame/python
 """
 
 from functools import partial
@@ -33,7 +36,7 @@ import flame
 from PySide6 import QtCore, QtGui, QtWidgets
 
 TITLE = 'Flatten Segments'
-VERSION_INFO = (1, 0, 0, 'dev')
+VERSION_INFO = (2, 0, 0)
 VERSION = '.'.join([str(num) for num in VERSION_INFO])
 TITLE_VERSION = f'{TITLE} v{VERSION}'
 MESSAGE_PREFIX = '[PYTHON]'

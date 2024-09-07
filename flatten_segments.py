@@ -256,7 +256,10 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
 
 
 class FlattenTracks():
-    """Takes vertically stacked segments and flattens them to just the top most segment."""
+    """Flatten segments.
+
+    Takes vertically stacked segments and flattens them to just the top most segment.
+    """
 
     def __init__(self, selection):
 

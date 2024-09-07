@@ -210,7 +210,6 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
                 border: none}
             QPushButton:hover {
                 border: 1px solid rgb(90, 90, 90)}
-            QPushButton::menu-indicator {image: none}
             QToolTip {
                 color: rgb(170, 170, 170);
                 background-color: rgb(71, 71, 71);
@@ -228,7 +227,8 @@ class FlamePushButtonMenu(QtWidgets.QPushButton):
             QMenu {
                 color: rgb(154, 154, 154);
                 background-color: rgb(45, 55, 68);
-                border: none; font: 14px "Discreet"}
+                border: none;
+                font: 14px "Discreet"}
             QMenu::item:selected {
                 color: rgb(217, 217, 217);
                 background-color: rgb(58, 69, 81)}""")

@@ -2,13 +2,13 @@
 Script Name: Flatten Segments
 Written By: Kieran Hanrahan
 
-Script Version: 2.0.0
+Script Version: 2.1.0
 Flame Version: 2025
 
 URL: http://github.com/khanrahan/flatten-segments
 
 Creation Date: 01.12.24
-Update Date: 09.06.24
+Update Date: 03.07.25
 
 Description:
 
@@ -21,13 +21,13 @@ Menus:
 To Install:
 
     For all users, copy this file to:
-    /opt/Autodesk/shared/python
+    /opt/Autodesk/shared/python/
 
-    For just your own user on Linux, copy this file to:
-    ~/flame/python
+    For a specific user on Linux, copy this file to:
+    /home/<user_name>/flame/python/
 
-    For just your own user on Mac, copy this file to:
-    /User/user_name/Library/Preferences/Autodesk/flame/python
+    For a specific user on Mac, copy this file to:
+    /Users/<user_name>/Library/Preferences/Autodesk/flame/python/
 """
 
 from functools import partial
@@ -36,7 +36,7 @@ import flame
 from PySide6 import QtCore, QtGui, QtWidgets
 
 TITLE = 'Flatten Segments'
-VERSION_INFO = (2, 0, 0)
+VERSION_INFO = (2, 1, 0)
 VERSION = '.'.join([str(num) for num in VERSION_INFO])
 TITLE_VERSION = f'{TITLE} v{VERSION}'
 MESSAGE_PREFIX = '[PYTHON]'
@@ -270,6 +270,7 @@ class FlattenSegments:
 
         self.desktop = flame.project.current_project.current_workspace.desktop
         self.sequence = None
+        self.sequence_current_time_initial = None
         self.reel_temp = None
         self.destination_version = None
         self.destination_track = None
@@ -391,10 +392,20 @@ class FlattenSegments:
             if version != self.destination_version:
                 flame.delete(version, confirm=False)
 
+    def deselect_entire_desktop(self):
+        """Deselect entire desktop."""
+        desktop_current = flame.project.current_project.current_workspace.desktop
+
+        for reel_group in desktop_current.reel_groups:
+            for reel in reel_group.reels:
+                for child in reel.children:
+                    child.selected = False
+
     def process_selection(self):
         """Where the work gets done!"""
-        # Store Current Sequence
+        # Store Current Sequence & Current Time
         self.sequence = self.get_parent_sequence(self.selection[0])
+        self.sequence_current_time_initial = self.sequence.current_time.get_value()
 
         # Prepare Selection
         self.deselect_selection()
@@ -420,6 +431,18 @@ class FlattenSegments:
             self.message('Discarded original segments.')
 
         flame.execute_shortcut('Close Current Sequence')
+
+        # Restore Selection
+        # Necessary to deselect the entire desktop because otherwise the selection moves
+        # to the first clip in the first reel during delete_temp_reel()
+        self.deselect_entire_desktop()
+        self.sequence.selected = True
+
+        # Restore Positioner Position/Time
+        self.sequence.current_time = self.sequence_current_time_initial
+
+        # Park Vertical Positioner on Destination Track
+        self.sequence.primary_track = self.destination_track
 
     def main_window(self):
         """The only GUI."""

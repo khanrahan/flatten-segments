@@ -392,6 +392,15 @@ class FlattenSegments:
             if version != self.destination_version:
                 flame.delete(version, confirm=False)
 
+    def deselect_entire_desktop(self):
+        """Deselect entire desktop."""
+        desktop_current = flame.project.current_project.current_workspace.desktop
+
+        for reel_group in desktop_current.reel_groups:
+            for reel in reel_group.reels:
+                for child in reel.children:
+                    child.selected = False
+
     def process_selection(self):
         """Where the work gets done!"""
         # Store Current Sequence & Current Time
@@ -422,6 +431,12 @@ class FlattenSegments:
             self.message('Discarded original segments.')
 
         flame.execute_shortcut('Close Current Sequence')
+
+        # Restore Selection
+        # Necessary to deselect the entire desktop because otherwise the selection moves
+        # to the first clip in the first reel during delete_temp_reel()
+        self.deselect_entire_desktop()
+        self.sequence.selected = True
 
         # Restore Positioner Position/Time
         self.sequence.current_time = self.sequence_current_time_initial

@@ -425,6 +425,10 @@ class FlattenSegments:
 
         # Restore Positioner Position/Time
         self.sequence.current_time = self.sequence_current_time_initial
+
+        # Park Vertical Positioner on Destination Track
+        self.sequence.primary_track = self.destination_track
+
     def main_window(self):
         """The only GUI."""
 

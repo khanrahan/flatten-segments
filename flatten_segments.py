@@ -270,6 +270,7 @@ class FlattenSegments:
 
         self.desktop = flame.project.current_project.current_workspace.desktop
         self.sequence = None
+        self.sequence_current_time_initial = None
         self.reel_temp = None
         self.destination_version = None
         self.destination_track = None
@@ -393,8 +394,9 @@ class FlattenSegments:
 
     def process_selection(self):
         """Where the work gets done!"""
-        # Store Current Sequence
+        # Store Current Sequence & Current Time
         self.sequence = self.get_parent_sequence(self.selection[0])
+        self.sequence_current_time_initial = self.sequence.current_time.get_value()
 
         # Prepare Selection
         self.deselect_selection()
@@ -421,6 +423,8 @@ class FlattenSegments:
 
         flame.execute_shortcut('Close Current Sequence')
 
+        # Restore Positioner Position/Time
+        self.sequence.current_time = self.sequence_current_time_initial
     def main_window(self):
         """The only GUI."""
 
